@@ -22,7 +22,6 @@ var sum = function(array) {
   if (array.length === 0) {
     return 0;
   } else {
-    firtArrayValue = array[0];
     return array[0] + sum(array.slice(1));
   }
 };
@@ -30,21 +29,62 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
-  //base case, empty arr, return 0
-  //recursion case, not an empty arr
-    //variable to hold the sum of the inner function
-    //inner function to flatten
-    //iterate over the flattend function
+  // base case, empty arr, return 0
+  // recursion case, not an empty arr
+    // if the first element is an arr
+      //call the function with the first element passed in
+      //call the function with the first element of array sliced
+    //otherwise
+      //return the element
+
+  if (array.length === 0 || typeof array === 'number') {
+    return 0;
+  }
+  if (Array.isArray(array)) {
+    if (Array.isArray(array[0])) {
+      return arraySum(array[0]) + arraySum(array.slice(1));
+    } else {
+    var number = array[0];
+    return number + arraySum(array.slice(1));
+    }
+  } else {
+      return array;
+  }
+
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  // base is 0 or 1
+  // recursion if greater than 1
+    // call function with n - 2
+  n = Math.abs(n);
+  if (n === 1) {
+    return false;
+  }
+  if (n === 0) {
+    return true;
+  }
+  return isEven(n - 2);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  // base when n = 0
+  // recursion n > 0
+  // return the sum of the current n with the call of the function with n - 1
+  if ( n <= 0) {
+    return 0;
+  }
+  var alreadyCalled = false
+  if (!alreadyCalled) {
+    alreadyCalled = true;
+    return sumBelow(n - 1);
+  } else {
+    return n + sumBelow(n - 1);
+  }
 };
 
 // 6. Get the integers within a range (x, y).
